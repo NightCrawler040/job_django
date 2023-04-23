@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  database:
+    environment:
+      POSTGRES_DB: src_db
+      POSTGRES_PASSWORD: awesome_password_1
+    image: postgres:14.1
+    ports:
+      - "127.0.0.1:5433:5432/tcp"
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data:rw
+
+  redis:
+    image: redis:latest
+    ports:
+      - "127.0.0.1:6379:6379/tcp"
+    restart: always
+    volumes:
+      - redis_data:/data:rw
+
+#  centrifugo:
+#    container_name: centrifugo
+#    image: centrifugo/centrifugo:v3
+#    volumes:
+#      - ./config.json:/centrifugo/config.json
+#    command: centrifugo -c config.json
+#    ports:
+#      - "9000:9000"
+#    ulimits:
+#      nofile:
+#        soft: 65535
+#        hard: 65535
+
+volumes:
+  pg_data: {}
+  redis_data: {}
